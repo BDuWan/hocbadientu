@@ -10,20 +10,20 @@ import com.duwan.hocba.object.UserObject;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class HS_QuanLyTK_Controller {
+public class PH_Home_Controller {
 	private final UserInterface userInterface;
 
-	public HS_QuanLyTK_Controller(UserInterface userInterface) {
+	public PH_Home_Controller(UserInterface userInterface) {
 		this.userInterface = userInterface;
 	}
 	
-	@GetMapping("/hocsinh/quanlytaikhoan")
-	public String showHS_TKBPage(HttpSession session, Model model) {
+	@GetMapping("/phuhuynh")
+	public String showHSPage(HttpSession session, Model model) {
 	    String username = (String) session.getAttribute("current_username");
 	    if (username != null) {	    	
 	    	UserObject user = userInterface.getUserByTendangnhap(username);
 	        model.addAttribute("user", user);
-	        return "hocsinh_quanlytaikhoan";
+	        return "phuhuynh";
 	    } else {
 	        return "redirect:/login";
 	    }

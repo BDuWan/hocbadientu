@@ -22,7 +22,7 @@ public class UserDao implements UserInterface {
 	}
 	
 	@Override
-	public UserObject fetchUserByTendangnhap(String user_tendangnhap) {
+	public UserObject getUserByTendangnhap(String user_tendangnhap) {
 		System.out.println(getJdbcTemplate().getDataSource().getClass().getName());
 		String SQL = "SELECT * FROM user WHERE user_tendangnhap = ?";
 		return getJdbcTemplate().queryForObject(SQL, new UserRowMapper(), user_tendangnhap);
@@ -35,7 +35,7 @@ public class UserDao implements UserInterface {
 //	}
 	
 	@Override
-	public List<UserObject> fetchAllUser() {
+	public List<UserObject> getAllUser() {
 		String SQL = "SELECT * FROM user";
 		return getJdbcTemplate().query(SQL, new UserRowMapper());
 	}

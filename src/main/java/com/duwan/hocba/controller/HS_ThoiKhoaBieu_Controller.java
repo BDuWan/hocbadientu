@@ -21,7 +21,7 @@ public class HS_ThoiKhoaBieu_Controller {
 	public String showHS_TKBPage(HttpSession session, Model model) {
 	    String username = (String) session.getAttribute("current_username");
 	    if (username != null) {	    	
-	    	UserObject user = userInterface.fetchUserByTendangnhap(username);
+	    	UserObject user = userInterface.getUserByTendangnhap(username);
 	        model.addAttribute("user", user);
 	        return "hocsinh_thoikhoabieu";
 	    } else {

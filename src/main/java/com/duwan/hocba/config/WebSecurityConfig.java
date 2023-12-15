@@ -52,7 +52,7 @@ public class WebSecurityConfig {
 		HttpSession session = request.getSession();
 	    session.setAttribute("current_username", current_username);
 		if (roles.contains("hs")) {
-			response.sendRedirect("/hocsinh");
+			response.sendRedirect("/hocsinh/thoikhoabieu");
 		} else if (roles.contains("gv")) {
 			response.sendRedirect("/giaovien");
 		} else if (roles.contains("ph")) {
@@ -75,7 +75,7 @@ public class WebSecurityConfig {
    
     @Bean
 	InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-		List<UserObject> users = userInterface.fetchAllUser();
+		List<UserObject> users = userInterface.getAllUser();
 		InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
 
         for (UserObject user : users) {

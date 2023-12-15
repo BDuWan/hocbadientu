@@ -21,7 +21,7 @@ public class HS_Home_Controller {
 	public String showHSPage(HttpSession session, Model model) {
 	    String username = (String) session.getAttribute("current_username");
 	    if (username != null) {	    	
-	    	UserObject user = userInterface.fetchUserByTendangnhap(username);
+	    	UserObject user = userInterface.getUserByTendangnhap(username);
 	        model.addAttribute("user", user);
 	        return "hocsinh";
 	    } else {
