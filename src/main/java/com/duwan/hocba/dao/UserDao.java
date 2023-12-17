@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.duwan.hocba.interfac.UserInterface;
 import com.duwan.hocba.object.UserObject;
+import com.duwan.hocba.rowmapper.UserRowMapper;
 
 @Repository
 public class UserDao implements UserInterface {
@@ -23,7 +24,6 @@ public class UserDao implements UserInterface {
 	
 	@Override
 	public UserObject getUserByTendangnhap(String user_tendangnhap) {
-		System.out.println(getJdbcTemplate().getDataSource().getClass().getName());
 		String SQL = "SELECT * FROM user WHERE user_tendangnhap = ?";
 		return getJdbcTemplate().queryForObject(SQL, new UserRowMapper(), user_tendangnhap);
 	}
