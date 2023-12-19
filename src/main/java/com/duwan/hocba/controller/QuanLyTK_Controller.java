@@ -10,20 +10,32 @@ import com.duwan.hocba.object.UserObject;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class GV_Home_Controller {
+public class QuanLyTK_Controller {
 	private final UserDao userDao;
 
-	public GV_Home_Controller(UserDao userDao) {
+	public QuanLyTK_Controller(UserDao userDao) {
 		this.userDao = userDao;
 	}
 	
-	@GetMapping("/giaovien")
-	public String showHSPage(HttpSession session, Model model) {
+	@GetMapping("/quanlytaikhoan")
+	public String showQLTK(HttpSession session, Model model) {
 	    String username = (String) session.getAttribute("current_username");
 	    if (username != null) {	    	
 	    	UserObject user = userDao.getUserByTendangnhap(username);
 	        model.addAttribute("user", user);
-	        return "giaovien";
+	        return "quanlytaikhoan";
+	    } else {
+	        return "redirect:/login";
+	    }
+	}
+	
+	@GetMapping("/quanlytaikhoan/doimatkhau")
+	public String showDoiMK(HttpSession session, Model model) {
+	    String username = (String) session.getAttribute("current_username");
+	    if (username != null) {	    	
+	    	UserObject user = userDao.getUserByTendangnhap(username);
+	        model.addAttribute("user", user);
+	        return "doimatkhau";
 	    } else {
 	        return "redirect:/login";
 	    }

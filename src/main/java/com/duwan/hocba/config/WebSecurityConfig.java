@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.duwan.hocba.interfac.UserInterface;
+import com.duwan.hocba.dao.UserDao;
 import com.duwan.hocba.object.UserObject;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +34,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/hocsinh/**").hasAuthority("hs")
 				.requestMatchers("/giaovien/**").hasAuthority("gv")
 				.requestMatchers("/phuhuynh/**").hasAuthority("ph")
+				.requestMatchers("/quanlytaikhoan/**").hasAnyAuthority("hs", "gv", "ph")
 				.anyRequest().authenticated())
 				.formLogin((form) -> 
 				 form.loginPage("/login").permitAll()
@@ -52,11 +53,13 @@ public class WebSecurityConfig {
 		HttpSession session = request.getSession();
 	    session.setAttribute("current_username", current_username);
 		if (roles.contains("hs")) {
-			response.sendRedirect("/hocsinh/thoikhoabieu");
+			String linkhome = "/hocsinh/thoikhoabieu";
+		    session.setAttribute("linkhome", linkhome);
+			response.sendRedirect(linkhome);
 		} else if (roles.contains("gv")) {
 			response.sendRedirect("/giaovien");
 		} else if (roles.contains("ph")) {
-			response.sendRedirect("/phuhuynh");
+			response.sendRedirect("/phuhuynh/thoikhoabieu");
 		} else {
 			response.sendRedirect("/notfound");
 		}
@@ -67,15 +70,15 @@ public class WebSecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 	
-	private final UserInterface userInterface;
+	private final UserDao userDao;
 
-    public WebSecurityConfig(UserInterface userInterface) {
-        this.userInterface = userInterface;
+    public WebSecurityConfig(UserDao userDao) {
+        this.userDao = userDao;
     }
    
     @Bean
 	InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-		List<UserObject> users = userInterface.getAllUser();
+		List<UserObject> users = userDao.getAllUser();
 		InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
 
         for (UserObject user : users) {

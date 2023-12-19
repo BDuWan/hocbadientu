@@ -1,12 +1,12 @@
 package com.duwan.hocba.object;
 
 public class UserObject {
-	private String tendangnhap;
-	private String password;
-	private String hoten;
-	private String sdt;
-	private String diachi;
-	private String loaitk;
+	protected String tendangnhap;
+	protected String password;
+	protected String hoten;
+	protected String sdt;
+	protected String diachi;
+	protected String loaitk;
 	public UserObject() {
 	}
 	

@@ -13,7 +13,12 @@ public class HocSinhRowMapper implements RowMapper<HocSinhObject> {
 		hSinh.setHocsinh_id(rs.getInt("hocsinh_id"));
 		hSinh.setLop_id(rs.getString("lop_id"));
 		hSinh.setPhuhuynh_id(rs.getInt("phuhuynh_id"));
-		hSinh.setUser_tendangnhap(rs.getString("user_tendangnhap"));
+		hSinh.setTendangnhap(rs.getString("user_tendangnhap"));
+		hSinh.setPassword(rs.getString("user_password"));
+		hSinh.setHoten(rs.getString("user_hoten"));
+		hSinh.setDiachi(rs.getString("user_diachi"));
+		hSinh.setSdt(rs.getString("user_sdt"));
+		hSinh.setLoaitk(rs.getString("user_loaitk"));
 		return hSinh;
 	}
 }

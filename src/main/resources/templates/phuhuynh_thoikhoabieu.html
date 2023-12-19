@@ -26,6 +26,20 @@
             </div>
         </div>
     </nav>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" th:each="hocsinh : ${list_hocsinh}">
+			<div th:if="${hocsinh.getHocsinh_id} == ${selected_hsid}">
+				<a class="nav-link active" href="">
+					-<span th:text="${hocsinh.getHoten()}"></span>-
+				</a>
+			</div>
+			<div div th:if="${hocsinh.getHocsinh_id} != ${selected_hsid}">
+				<a class="nav-link" th:href="@{/phuhuynh/thoikhoabieu/{hocsinhId}(hocsinhId=${hocsinh.getHocsinh_id()})}">
+					-<span th:text="${hocsinh.getHoten()}"></span>-
+				</a>
+			</div>
+		</li>
+    </ul>
     <section class="pricing-table">
         <div class="container">
             <div class="pricing-area text-center">
