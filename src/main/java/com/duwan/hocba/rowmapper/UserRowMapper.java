@@ -15,7 +15,10 @@ public class UserRowMapper implements RowMapper<UserObject> {
 		user.setHoten(rs.getString("user_hoten"));
 		user.setDiachi(rs.getString("user_diachi"));
 		user.setSdt(rs.getString("user_sdt"));
+		user.setEmail(rs.getString("user_email"));
+		user.setNgaysinh(rs.getDate("user_ngaysinh"));
 		user.setLoaitk(rs.getString("user_loaitk"));
+		user.setGioitinh(rs.getInt("user_gioitinh"));
 		return user;
 	}
 }

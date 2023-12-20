@@ -4,15 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Trang chủ</title>
+    <title>Untitled</title>
     <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{https://daneden.github.io/animate.css/animate.min.css}">
     <link rel="stylesheet" th:href="@{/assets/css/Pricing-Tables.css}">
     <link rel="stylesheet" th:href="@{/assets/css/styles.css}">
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-md">
+	<nav class="navbar navbar-light navbar-expand-md">
 		<div class="container-fluid" th:if="${user}">
 	        <b class="navbar-brand">Xin chào: <span th:text="${user.getHoten()}"></span></b>
 	        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
@@ -21,13 +20,19 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/hocsinh/thoikhoabieu">Thời khóa biểu</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/hocsinh/ketquahoctap">Kết quả học tập</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/hocsinh/quanlytaikhoan">Quản lý tài khoản</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="">Kết quả học tập</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/quanlytaikhoan/capnhatthongtin">Quản lý tài khoản</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" th:each="ki : ${list_ki}">
+			<a class="nav-link" th:href="@{/hocsinh/ketquahoctap/{ki}(ki=${ki})}">
+				-<span th:text="Kì + ${ki}"></span>-
+			</a>
+		</li>
+    </ul>
 </body>
-
+    <script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
 </html>

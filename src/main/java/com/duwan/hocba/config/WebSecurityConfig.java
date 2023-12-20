@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-
 import com.duwan.hocba.dao.UserDao;
 import com.duwan.hocba.object.UserObject;
 
@@ -29,6 +28,7 @@ import jakarta.servlet.http.HttpSession;
 public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    	
 		http.authorizeHttpRequests((requests) -> 
 				requests.requestMatchers("/notfound","/assets/**").permitAll()
 				.requestMatchers("/hocsinh/**").hasAuthority("hs")
@@ -42,7 +42,7 @@ public class WebSecurityConfig {
 				.successHandler((request, response, authentication) -> {
 					handleRoleRedirection(request, response, authentication);
 				}))
-				.logout((logout) -> logout.permitAll());
+				.logout((logout) -> logout.permitAll().logoutSuccessUrl("/login"));
 
 		return http.build();
 	}
@@ -59,7 +59,9 @@ public class WebSecurityConfig {
 		} else if (roles.contains("gv")) {
 			response.sendRedirect("/giaovien");
 		} else if (roles.contains("ph")) {
-			response.sendRedirect("/phuhuynh/thoikhoabieu");
+			String linkhome = "/phuhuynh/thoikhoabieu";
+		    session.setAttribute("linkhome", linkhome);
+			response.sendRedirect(linkhome);
 		} else {
 			response.sendRedirect("/notfound");
 		}

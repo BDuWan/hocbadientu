@@ -21,11 +21,18 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/hocsinh/thoikhoabieu">Thời khóa biểu</a></li>
                     <li class="nav-item"><a class="nav-link active" href="">Kết quả học tập</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/quanlytaikhoan">Quản lý tài khoản</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/quanlytaikhoan/capnhatthongtin">Quản lý tài khoản</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" th:each="ki : ${list_ki}">
+			<a class="nav-link" th:href="@{/hocsinh/ketquahoctap/{ki}(ki=${ki})}">
+				-<span th:text="Kì + ${ki}"></span>-
+			</a>
+		</li>
+    </ul>
     <section class="mt-4">
         <div class="container-fluid">
             <div class="row">
@@ -42,10 +49,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
+                                        <tr th:each="KQHT : ${list_KQHT}">
+                                            <td th:text="${KQHT.getMonHoc_name()}"></td>
+                                            <td th:text="${KQHT.getDiem()}"></td>
+                                            <td th:text="${KQHT.getNhanXet()}"></td>
                                         </tr>
                                     </tbody>
                                 </table>

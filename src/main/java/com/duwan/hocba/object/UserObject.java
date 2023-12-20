@@ -1,12 +1,17 @@
 package com.duwan.hocba.object;
 
+import java.sql.Date;
+
 public class UserObject {
 	protected String tendangnhap;
 	protected String password;
 	protected String hoten;
 	protected String sdt;
+	protected String email;
 	protected String diachi;
 	protected String loaitk;
+	protected Date ngaysinh;
+	protected int gioitinh;
 	public UserObject() {
 	}
 	
@@ -46,10 +51,28 @@ public class UserObject {
 	public void setLoaitk(String loaitk) {
 		this.loaitk = loaitk;
 	}
-	
-	@Override
-	public String toString() {
-		return "User [Tendangnhap=" + tendangnhap + ", password=" + password + ", hoten=" + hoten
-				+ ", sdt=" + sdt + ", diachi=" + diachi + "]";
+
+	public int getGioitinh() {
+		return gioitinh;
+	}
+
+	public void setGioitinh(int gioitinh) {
+		this.gioitinh = gioitinh;
+	}
+
+	public Date getNgaysinh() {
+		return ngaysinh;
+	}
+
+	public void setNgaysinh(Date ngaysinh) {
+		this.ngaysinh = ngaysinh;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

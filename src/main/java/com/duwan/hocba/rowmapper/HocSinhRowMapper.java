@@ -18,7 +18,10 @@ public class HocSinhRowMapper implements RowMapper<HocSinhObject> {
 		hSinh.setHoten(rs.getString("user_hoten"));
 		hSinh.setDiachi(rs.getString("user_diachi"));
 		hSinh.setSdt(rs.getString("user_sdt"));
+		hSinh.setEmail(rs.getString("user_email"));
+		hSinh.setNgaysinh(rs.getDate("user_ngaysinh"));
 		hSinh.setLoaitk(rs.getString("user_loaitk"));
+		hSinh.setGioitinh(rs.getInt("user_gioitinh"));
 		return hSinh;
 	}
 }

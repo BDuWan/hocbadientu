@@ -19,7 +19,10 @@ public class PhuHuynhRowMapper implements RowMapper<PhuHuynhObject>{
 		ph.setHoten(rs.getString("user_hoten"));
 		ph.setDiachi(rs.getString("user_diachi"));
 		ph.setSdt(rs.getString("user_sdt"));
+		ph.setEmail(rs.getString("user_email"));
+		ph.setNgaysinh(rs.getDate("user_ngaysinh"));
 		ph.setLoaitk(rs.getString("user_loaitk"));
+		ph.setGioitinh(rs.getInt("user_gioitinh"));
 		return ph;
 	}
 }
