@@ -27,19 +27,22 @@
         </div>
     </nav>
     <ul class="nav nav-tabs">
-        <li class="nav-item" th:each="hocsinh : ${list_hocsinh}">
-			<div th:if="${hocsinh.getHocsinh_id} == ${selected_hsid}">
-				<a class="nav-link active" href="">
-					-<span th:text="${hocsinh.getHoten()}"></span>-
-				</a>
-			</div>
-			<div div th:if="${hocsinh.getHocsinh_id} != ${selected_hsid}">
-				<a class="nav-link" th:href="@{/phuhuynh/thoikhoabieu/{hocsinhId}(hocsinhId=${hocsinh.getHocsinh_id()})}">
-					-<span th:text="${hocsinh.getHoten()}"></span>-
-				</a>
-			</div>
+        <li class="nav-item" th:each="lop : ${list_lop}">
+			<a class="nav-link" th:href="@{/hocsinh/ketquahoctap/{lop}(lop=${lop})}">
+				-<span th:text="Lớp + ${lop}"></span>-
+			</a>
 		</li>
     </ul>
+    
+    <ul class="nav nav-tabs">
+        <li class="nav-item" th:each="ki : ${list_ki}">
+			<a class="nav-link" th:href="@{/hocsinh/ketquahoctap/{lop}/{ki}(lop=${lop}, ki=${ki})}">
+				
+				-<span th:text="Kì + ${ki}"></span>-
+			</a>
+		</li>
+    </ul>
+    
     <section class="mt-4">
         <div class="container-fluid">
             <div class="row">

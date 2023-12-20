@@ -23,7 +23,6 @@ public class HS_KetQuaHT_Controller {
 	private final UserDao userDao;
 	private final HS_KQHT_Dao kqhtDao;
 	private final HocSinhDao hsDao;
-
 	public HS_KetQuaHT_Controller(UserDao userDao, HS_KQHT_Dao kqhtDao, HocSinhDao hsDao) {
 		this.userDao = userDao;
 		this.kqhtDao = kqhtDao;
@@ -37,12 +36,9 @@ public class HS_KetQuaHT_Controller {
 	    	UserObject user = userDao.getUserByTendangnhap(username);
 	    	HocSinhObject hocSinh = hsDao.getHocSinhByTDN(username);
 	    	List<HS_KQHT_Object> list_KQHT = kqhtDao.getKqhtByHocSinhId(hocSinh.getHocsinh_id());
-	    	Set<Integer> list_ki = new TreeSet<>();
-	    	for(HS_KQHT_Object kqht : list_KQHT) {
-	    		list_ki.add(kqht.getHocKi());
-	    	}
 	        model.addAttribute("user", user);
-	        model.addAttribute("list_ki", list_ki);
+	        model.addAttribute("list_lop", getList(5));
+	        model.addAttribute("list_KQHT", list_KQHT);
 	        
 	        return "hocsinh_ketquahoctap_blank";
 	    } else {
@@ -50,23 +46,53 @@ public class HS_KetQuaHT_Controller {
 	    }
 	}
 	
-	@GetMapping("/hocsinh/ketquahoctap/{ki}")
-	public String showHSPageWithKi(HttpSession session, Model model, @PathVariable int ki) {
+	@GetMapping("/hocsinh/ketquahoctap/{lop}")
+	public String showHSPageWith(HttpSession session, Model model, @PathVariable int lop) {
 	    String username = (String) session.getAttribute("current_username");
-	    if (username != null) {	  	    	
-	    	HocSinhObject hocsinh = hsDao.getHocSinhByTDN(username);
-	    	List<HS_KQHT_Object> list_KQHT = kqhtDao.getKqhtByHocSinhId(hocsinh.getHocsinh_id(), ki);
-	    	Set<Integer> list_ki = new TreeSet<>();
-	    	for(HS_KQHT_Object kqht : list_KQHT) {
-	    		list_ki.add(kqht.getHocKi());
-	    	}
-	    	model.addAttribute("list_ki", list_ki);
-	    	model.addAttribute("hocsinh", hocsinh);
+	    if (username != null) {	  
+	    	UserObject user = userDao.getUserByTendangnhap(username);
+	    	HocSinhObject hocSinh = hsDao.getHocSinhByTDN(username);
+	    	List<HS_KQHT_Object> list_KQHT = kqhtDao.getKqhtByHocSinhId(hocSinh.getHocsinh_id(), lop);
+	        model.addAttribute("user", user);
+	        model.addAttribute("hocsinh", hocSinh);
+	        model.addAttribute("list_lop", getList(5));
+	        model.addAttribute("list_ki", getList(2));
+	        model.addAttribute("lop", lop);
 	    	model.addAttribute("list_KQHT", list_KQHT);
+	    	
 	        
 	        return "hocsinh_ketquahoctap";
 	    } else {
 	        return "redirect:/login";
 	    }
+	}
+	
+	@GetMapping("/hocsinh/ketquahoctap/{lop}/{ki}")
+	public String showHSPageWith(HttpSession session, Model model, @PathVariable int lop, @PathVariable int ki) {
+		String username = (String) session.getAttribute("current_username");
+	    if (username != null) {	  
+	    	UserObject user = userDao.getUserByTendangnhap(username);
+	    	HocSinhObject hocSinh = hsDao.getHocSinhByTDN(username);
+	    	List<HS_KQHT_Object> list_KQHT = kqhtDao.getKqhtByHocSinhId(hocSinh.getHocsinh_id(), lop, ki);
+	        model.addAttribute("user", user);
+	        model.addAttribute("hocsinh", hocSinh);
+	        model.addAttribute("list_lop", getList(5));
+	        model.addAttribute("list_ki", getList(2));
+	        model.addAttribute("lop", lop);
+	    	model.addAttribute("list_KQHT", list_KQHT);
+	    	
+	        
+	        return "hocsinh_ketquahoctap";
+	    } else {
+	        return "redirect:/login";
+	    }
+	}
+	
+	private Set<Integer> getList(int n) {
+		Set<Integer> set = new TreeSet<>();
+		for(int i =1; i<=n; i++) {
+			set.add(i);
+		}
+		return set;
 	}
 }

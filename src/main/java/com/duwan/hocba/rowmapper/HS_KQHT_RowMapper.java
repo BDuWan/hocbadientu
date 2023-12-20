@@ -15,7 +15,9 @@ public class HS_KQHT_RowMapper implements RowMapper<HS_KQHT_Object> {
 		kqht.setDiem(rs.getFloat("diem"));
 		kqht.setHocKi(rs.getInt("hocki"));
 		kqht.setMonHoc_name(rs.getString("monhoc_name"));
-		kqht.setNamHoc(rs.getString("namhoc"));
+		kqht.setHocSinh_id(rs.getString("hocsinh_id"));
+		kqht.setLop_id(rs.getString("lop_id"));
+		kqht.setXepLoai(rs.getString("xeploai"));
 		kqht.setNhanXet(rs.getString("nhanxetcuagv"));
 		return kqht;
 	}

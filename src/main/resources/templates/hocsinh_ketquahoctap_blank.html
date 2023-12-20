@@ -27,9 +27,9 @@
         </div>
     </nav>
     <ul class="nav nav-tabs">
-        <li class="nav-item" th:each="ki : ${list_ki}">
-			<a class="nav-link" th:href="@{/hocsinh/ketquahoctap/{ki}(ki=${ki})}">
-				-<span th:text="Kì + ${ki}"></span>-
+        <li class="nav-item" th:each="lop : ${list_lop}">
+			<a class="nav-link" th:href="@{/hocsinh/ketquahoctap/{lop}(lop=${lop})}">
+				-<span th:text="Lớp + ${lop}"></span>-
 			</a>
 		</li>
     </ul>

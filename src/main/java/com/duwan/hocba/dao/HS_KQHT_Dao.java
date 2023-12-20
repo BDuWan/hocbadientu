@@ -16,11 +16,18 @@ public class HS_KQHT_Dao extends JdbcDao {
 		return getJdbcTemplate().query(SQL, new HS_KQHT_RowMapper(), id	);
 	}
 	
-	public List<HS_KQHT_Object> getKqhtByHocSinhId(int id, int ki) {
+	public List<HS_KQHT_Object> getKqhtByHocSinhId(int id, int lop) {
+		String SQL = "select * from ketquahoctap "
+				+ " JOIN monhoc on monhoc.monhoc_id = ketquahoctap.monhoc_id"
+				+ " where ketquahoctap.hocsinh_id = ? and ketquahoctap.hocki in (?,?)";
+		return getJdbcTemplate().query(SQL, new HS_KQHT_RowMapper(), id	, lop*2-1, lop*2);
+	}
+	
+	public List<HS_KQHT_Object> getKqhtByHocSinhId(int id, int lop, int ki ) {
 		String SQL = "select * from ketquahoctap "
 				+ " JOIN monhoc on monhoc.monhoc_id = ketquahoctap.monhoc_id"
 				+ " where ketquahoctap.hocsinh_id = ? and ketquahoctap.hocki = ?";
-		return getJdbcTemplate().query(SQL, new HS_KQHT_RowMapper(), id	, ki);
+		return getJdbcTemplate().query(SQL, new HS_KQHT_RowMapper(), id	, lop*2-2+ki);
 	}
 
 }
