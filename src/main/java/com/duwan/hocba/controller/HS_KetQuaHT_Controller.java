@@ -1,5 +1,9 @@
 package com.duwan.hocba.controller;
 
+<<<<<<< HEAD
+=======
+import java.util.HashSet;
+>>>>>>> c0928d6f562f44e20daaf76c528d9629ebb68bd5
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -58,11 +62,14 @@ public class HS_KetQuaHT_Controller {
 	    	UserObject user = userDao.getUserByTendangnhap(username);
 	    	HocSinhObject hocSinh = hsDao.getHocSinhByTDN(username);
 	    	List<HS_KQHT_Object> list_KQHT = kqhtDao.getKqhtByHocSinhId(hocSinh.getHocsinh_id(), ki);
+<<<<<<< HEAD
 	    	Set<Integer> list_ki = new TreeSet<>();
 	    	for(HS_KQHT_Object kqht : list_KQHT) {
 	    		list_ki.add(kqht.getHocKi());
 	    	}
 	    	model.addAttribute("list_ki", list_ki);
+=======
+>>>>>>> c0928d6f562f44e20daaf76c528d9629ebb68bd5
 	    	model.addAttribute("user", user);
 	    	model.addAttribute("list_KQHT", list_KQHT);
 	        
