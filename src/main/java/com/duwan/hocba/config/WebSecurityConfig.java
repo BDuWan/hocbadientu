@@ -1,7 +1,6 @@
 package com.duwan.hocba.config;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
@@ -12,10 +11,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import com.duwan.hocba.dao.UserDao;
 import com.duwan.hocba.object.UserObject;
 
@@ -25,6 +28,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Configuration
 @EnableWebSecurity
+@Controller
 public class WebSecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -77,20 +81,38 @@ public class WebSecurityConfig {
     public WebSecurityConfig(UserDao userDao) {
         this.userDao = userDao;
     }
-   
+    
     @Bean
-	InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-		List<UserObject> users = userDao.getAllUser();
-		InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
+    UserDetailsService userDetailsService() {
+        return new CustomUserDetailsService(userDao);
+    }
 
-        for (UserObject user : users) {
-            UserDetails userDetails = User.withUsername(user.getTendangnhap())
-            		.password(user.getPassword())
-            		.authorities(user.getLoaitk())
-            		.build();
+    private static class CustomUserDetailsService implements UserDetailsService {
 
-            userDetailsManager.createUser(userDetails);
+        private final UserDao userDao;
+
+        public CustomUserDetailsService(UserDao userDao) {
+            this.userDao = userDao;
         }
-        return userDetailsManager;
-	}
+
+        @Override
+        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+            UserObject userObject = userDao.getUserByTendangnhap(username);
+
+            if (userObject == null) {
+                throw new UsernameNotFoundException("User not found with username: " + username);
+            }
+            else {
+	            return User.withUsername(userObject.getTendangnhap())
+	                    .password(userObject.getPassword())
+	                    .authorities(userObject.getLoaitk())
+	                    .build();
+            }
+        }
+    }
+    
+    @GetMapping("/login")
+    public String loginPage() {       
+        return "login";
+    }
 }

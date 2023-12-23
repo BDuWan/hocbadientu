@@ -38,7 +38,7 @@ public class PH_TKB_Controller {
 	        List<HocSinhObject> list_hocsinh = hocSinhDao.getListHocSinhByPhuHuynhId(phuhuynh.getPhuhuynh_id());
 	        model.addAttribute("list_hocsinh", list_hocsinh);
 	        
-	        return "phuhuynh_thoikhoabieu_blank";
+	        return "phuhuynh_thoikhoabieu";
 	    } else {
 	        return "redirect:/login";
 	    }

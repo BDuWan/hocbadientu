@@ -31,4 +31,16 @@ public class UserDao extends JdbcDao {
 
         return rowsAffected > 0;
     }
+	
+	public boolean updateUserPassword(String matkhau_moi, String tendangnhap) {
+        String sql = "UPDATE user "
+        		+ "SET user_password = ? "
+        		+ "WHERE user_tendangnhap = ?";
+
+        Object[] params = {matkhau_moi, tendangnhap};
+
+        int rowsAffected = jdbcTemplate.update(sql, params);
+
+        return rowsAffected > 0;
+    }
 }
